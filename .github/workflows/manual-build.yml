@@ -25,8 +25,11 @@ jobs:
       - name: Run tests
         run: npm test
 
-      - name: Build
-        run: npm run build --if-present
+      - name: Build bundle
+        run: npx rollup -c
+
+      - name: Verify temperature adjustment is in bundle
+        run: grep -q "temperature_adjustment" dist/ha-weather-heatmap-card.js
 
       - name: Upload built card
         uses: actions/upload-artifact@v4
